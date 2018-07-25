@@ -1,0 +1,110 @@
+/* Баннер */
+.mx-banner {
+    display: block;
+    width: 320px;
+    height: 405px;
+    position: fixed;
+    top: -100%;
+    left: 10px;
+    background: #ccc;
+    transition: all 0.5s ease;
+    z-index: 999999;
+    background-size: cover;
+    background-position: center center;
+    text-align: center;
+    color: #fff;
+    box-sizing: border-box;
+    padding: 45px 30px;
+}
+.mx-banner.__active {
+    top: 10px;
+}
+.mx-banner-close {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 28px;
+    color: #fff;
+    transform: rotate(-45deg);
+    cursor: pointer;
+    font-family: initial;
+}
+.mx-banner-head {
+    font-size: 16px;
+    text-transform: uppercase;
+    line-height: 1.3;
+    letter-spacing: 2.8px;
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 300;
+}
+.mx-banner-armchair {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 60px;
+    font-family: "Roboto", sans-serif !important;
+    font-weight: lighter;
+    transform: translate(-50%, -50%);
+}
+.mx-banner-armchair:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    display: block;
+    width: 150px;
+    height: 150px;
+    transform: translate(-50%, -50%);
+}
+.mx-banner-btn {
+    background: #f34558;
+    color: #fff;
+    border: none;
+    line-height: 4;
+    padding: 0px 50px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: "Roboto", sans-serif !important;
+    font-weight: 400;
+}
+.mx-banner-btn:hover {
+    background-color: #c3001e;
+}
+/* Тестовая форма */
+.test-data-form {
+    display: block;
+    width: 500px;
+    padding: 10px;
+    background: #eee;
+    z-index: 999999999999;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.test-data-form div {
+    display: block;
+    float: left;
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+.test-data-form div label,
+.test-data-form div input {
+    display: block;
+    float: left;
+    width: 50%;
+    border: none;
+    line-height: 20px;
+    height: 20px;
+    text-indent: 20px;
+    font-size: 12px;
+}

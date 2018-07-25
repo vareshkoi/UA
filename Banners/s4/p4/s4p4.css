@@ -1,0 +1,134 @@
+/* Баннер */
+.mx-banner {
+  display: block;
+  width: 320px;
+  height: 405px;
+  position: fixed;
+  top: -100%;
+  left: 10px;
+  background: #ccc;
+  transition: all 0.5s ease;
+  z-index: 999999;
+  background-size: cover;
+  background-position: center center;
+  text-align: center;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 45px 30px;
+}
+.mx-banner.__active {
+  top: 10px;
+}
+.mx-banner-close {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  font-size: 28px;
+  color: #fff;
+  transform: rotate(-45deg);
+  cursor: pointer;
+}
+.mx-banner-btn {
+  background: #f34558;
+  color: #fff;
+  border: none;
+  line-height: 4;
+  padding: 0px 50px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 400;
+}
+.mx-banner-btn:hover {
+  background-color: #c3001e;
+}
+.mx-banner-head {
+  font-size: 16px;
+  letter-spacing: 2.5px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+.mx-banner-from-to {
+  margin: 20px 0;
+}
+.mx-banner-from,
+.mx-banner-to {
+  font-size: 40px;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif !important;
+  line-height: 1.2;
+  font-weight: 600;
+}
+.mx-banner-price {
+  font-size: 60px;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 200;
+  line-height: 0.5;
+  position: relative;
+}
+.mx-banner-price:before {
+  content: "от";
+  margin-right: 5px;
+  font-size: 38px;
+  vertical-align: top;
+  line-height: 0.5;
+}
+.mx-banner-price:after {
+  content: "₽";
+  margin-left: 1px;
+  font-size: 37px;
+  vertical-align: top;
+  line-height: 0.6;
+}
+.for-test {
+  display: block;
+  position: fixed;
+  top: 20px;
+  right: 0;
+  z-index: 9999;
+  padding: 20px;
+  background: #eee;
+}
+/* Тестовая форма */
+.test-data-form {
+  display: block;
+  width: 500px;
+  padding: 10px;
+  background: #eee;
+  z-index: 999999999999;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.test-data-form div {
+  display: block;
+  float: left;
+  width: 100%;
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+}
+.test-data-form div label,
+.test-data-form div input {
+  display: block;
+  float: left;
+  width: 50%;
+  border: none;
+  line-height: 20px;
+  height: 20px;
+  text-indent: 20px;
+  font-size: 12px;
+}
+.mx-banner-balance {
+  display: block;
+  position: relative;
+  top: 230px;
+  font-size: 17px;
+  font-weight: 500;
+}
