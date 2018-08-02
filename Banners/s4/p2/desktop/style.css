@@ -14,7 +14,7 @@
   text-align: center;
   color: #fff;
   box-sizing: border-box;
-  padding: 45px 30px;
+  padding: 100px 30px;
 }
 .mx-banner.__active {
   top: 10px;
@@ -27,6 +27,57 @@
   color: #fff;
   transform: rotate(-45deg);
   cursor: pointer;
+  font-family: initial;
+}
+.mx-banner-head {
+  text-transform: uppercase;
+  display: block;
+  font-size: 16px;
+  letter-spacing: 2px;
+  font-weight: 100;
+}
+.mx-banner-content {
+  display: block;
+  font-size: 38px;
+  line-height: 1.2;
+  margin: 20px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 100;
+}
+.mx-banner-social {
+  padding-left: 0;
+}
+.mx-banner-social li {
+  background-image: url("https://service.maxymiser.net/cm/images-eu/1/1/1/9D949D78C5D486DDD2B3D2B4F73DD527AE54A9D2126037C571EAE039718E538E/uralairlines-ru/banners-test/socials.jpeg");
+  background-position-y: 0;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.mx-banner-social li:hover {
+  background-position-y: 40px;
+}
+.mxfb {
+  background-position-x: 160px;
+}
+.mxtw {
+  background-position-x: 80px;
+}
+.mxin {
+  background-position-x: 120px;
+}
+.mxok {
+  background-position-x: 40px;
+}
+.mx-banner-social li a {
+  display: block;
+  width: inherit;
+  height: inherit;
 }
 .mx-banner-btn {
   background: #f34558;
@@ -47,54 +98,6 @@
 }
 .mx-banner-btn:hover {
   background-color: #c3001e;
-}
-.mx-banner-head {
-  font-size: 16px;
-  letter-spacing: 2.5px;
-  line-height: 1.3;
-  text-transform: uppercase;
-  font-weight: 100;
-}
-.mx-banner-from-to {
-  margin: 20px 0;
-}
-.mx-banner-from,
-.mx-banner-to {
-  font-size: 40px;
-  text-transform: uppercase;
-  font-family: "Roboto", sans-serif !important;
-  line-height: 1.2;
-  font-weight: 600;
-}
-.mx-banner-price {
-  font-size: 60px;
-  font-family: "Roboto", sans-serif !important;
-  font-weight: 200;
-  line-height: 0.5;
-  position: relative;
-}
-.mx-banner-price:before {
-  content: "от";
-  margin-right: 5px;
-  font-size: 38px;
-  vertical-align: top;
-  line-height: 0.5;
-}
-.mx-banner-price:after {
-  content: "₽";
-  margin-left: 1px;
-  font-size: 37px;
-  vertical-align: top;
-  line-height: 0.6;
-}
-.for-test {
-  display: block;
-  position: fixed;
-  top: 20px;
-  right: 0;
-  z-index: 9999;
-  padding: 20px;
-  background: #eee;
 }
 /* Тестовая форма */
 .test-data-form {
@@ -124,11 +127,4 @@
   height: 20px;
   text-indent: 20px;
   font-size: 12px;
-}
-.mx-banner-balance {
-  display: block;
-  position: relative;
-  top: 230px;
-  font-size: 17px;
-  font-weight: 500;
 }

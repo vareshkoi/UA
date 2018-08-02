@@ -1,0 +1,99 @@
+/* Баннер */
+.mx-banner {
+  display: block;
+  width: 100%;
+  height: 187px;
+  position: fixed;
+  left: 0;
+  bottom: -100%;
+  background: #ccc;
+  transition: all 0.5s ease;
+  z-index: 999999;
+  background-size: cover;
+  background-position: center center;
+  text-align: left;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 30px;
+}
+._fr {
+  padding: 20px 30px;
+}
+.mx-banner.__active {
+  bottom: 0;
+}
+.mx-banner.__index {
+  position: fixed;
+  bottom: 0 !important;
+  left: 0px !important;
+}
+.mx-banner-close {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  font-size: 28px;
+  color: #fff;
+  transform: rotate(-45deg);
+  cursor: pointer;
+  font-weight: 300;
+  font-style: normal;
+}
+.__index .mx-banner-close {
+  display: none;
+}
+.mx-banner-head {
+  font-size: 18px;
+  text-transform: uppercase;
+  line-height: 1.3;
+  letter-spacing: 1px;
+  font-weight: 200;
+}
+.head2 {
+  font-size: 16px;
+  margin-top: 5px;
+  display: inline-block;
+}
+.mx-banner-head-two {
+  font-weight: 400;
+}
+.mx-banner-armchair {
+  display: block;
+  position: absolute;
+  font-size: 35px;
+  text-align: center;
+  right: 40px;
+  bottom: 33px;
+  line-height: 1.1;
+  font-weight: 100;
+  top: 44px;
+}
+.mx-banner-armchair:after {
+  content: "";
+  position: absolute;
+  top: 18%;
+  left: 50%;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: block;
+  width: 70px;
+  height: 70px;
+  transform: translate(-50%, -50%);
+}
+.mx-banner-btn {
+  background: #f34558;
+  color: #fff;
+  border: none;
+  padding: 15px 50px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 400;
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
+.mx-banner-btn:hover {
+  background-color: #c3001e;
+}

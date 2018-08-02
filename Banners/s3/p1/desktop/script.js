@@ -5,21 +5,21 @@ const get = name => visitor.getData(name);
 const test_data = [
   { param: "it-is-dkl", start: 0, name: "ДКЛ", type: "checkbox" },
   {
-    param: "sensitivitys",
+    param: "sensitiveness",
     start: 1,
     name: "Чувствтельность",
     type: "checkbox"
   },
   {
-    param: "fav-dir-from",
+    param: "city-reg",
     start: "Москва",
-    name: "Рекомендованное направление откуда",
+    name: "Город регистрации",
     type: "text"
   },
   {
-    param: "fav-dir-to",
-    start: "Санкт-Петербург",
-    name: "Рекомендованное направление куда",
+    param: "rec-dir",
+    start: "Москва-Уфа, Сочи-Москва, Санкт-Петербург-Сочи",
+    name: "Рекомендованные направления",
     type: "text"
   },
   {
@@ -37,7 +37,7 @@ const test_data = [
   { param: "bonus", start: 0, name: "Бонусы (ДКЛ)", type: "text" },
   {
     param: "registration",
-    start: 2,
+    start: "3",
     name: "Сколько месяцев назад зарег-ся",
     type: "text"
   },
@@ -48,9 +48,7 @@ const test_data = [
       "Скидка на авиабилет_Москва-Санкт-Петербург 10% Действует до 15.08.2018.",
     name: "Описание промокода",
     type: "text"
-  },
-  { param: "disc", start: 10, name: "Скидка", type: "text" },
-  { param: "exp", start: "15.08.2018", name: "Срок действия", type: "text" }
+  }
 ];
 
 //roadmap
@@ -98,22 +96,22 @@ const matchSearch = (x, arr) => {
 const acrl3m_bonus = get("acrl3m-bonus");
 const bonus = Number(get("bonus"));
 const registration = Number(get("registration"));
-const sensitivity = get("sensitivitys");
+const sensitivity = get("sensitiveness");
 const promocd = get("promocd");
-const fav_dir_to = get("fav-dir-to");
-const fav_dir_from = get("fav-dir-from");
-console.log(fav_dir_from, fav_dir_to);
+//
+const cityReg = get("city-reg");
+const recDir = get("rec-dir");
+//
 
 const variant = [
-  acrl3m_bonus > 100, //
+  acrl3m_bonus > 100,
   bonus > 10000,
   registration <= 3,
   sensitivity ? 1 : 0,
-  //   promocd !==undefined ? promocd.length > 0? 1: 0:0,
-  promocd,
+  promocd !== undefined ? (promocd.length > 0 ? 1 : 0) : 0,
   [
-    fav_dir_to !== undefined ? (fav_dir_to.length !== 0 ? 1 : 0) : 0,
-    fav_dir_from !== undefined ? (fav_dir_from.length !== 0 ? 1 : 0) : 0
+    cityReg !== undefined ? (cityReg.length !== 0 ? 1 : 0) : 0,
+    recDir !== undefined ? (recDir.length !== 0 ? 1 : 0) : 0
   ].reduce((acc, el) => {
     return el === 1 ? acc.concat(el) : acc;
   }, []).length === 2
@@ -135,25 +133,42 @@ const research = matchSearch(
 );
 console.log("research", research);
 
-/* Тестовая форма */
+// Рекомендованное направлениец v1
+/*
+* TODO: v2 - требуется доработка под JSON (формат рекомендованных направлений заисан в массив)
+* */
 
+const direction = (x, arr) => {
+  let result = "";
+  if (!!x && !!arr) {
+    result = arr.split(",").reduce((acc, val) => {
+      val.split("-")[0] === x ? acc.push(val) : acc;
+      return acc;
+    }, []);
+  }
+  return result.length > 0 ? result[0].split("-") : "";
+};
+
+/* Тестовая форма */
 // рендеринг полей формы
 const dataFields = data => {
-  return data.map(el => {
-    return el.type === "checkbox" || el.type === "radio"
-      ? `<div><label>${el.name}</label><input class=${el.param} name="${
-          el.type
-        }-group" type=${el.type} ${
-          get(el.param) ? "checked" : set(el.param, el.start)
-        }>
+  return data.reduce((acc, el) => {
+    const dom =
+      el.type === "checkbox" || el.type === "radio"
+        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" ${
+            get(el.param) ? "checked" : set(el.param, el.start)
+          }>
    </div>`
-      : `<div><label>${el.name}</label><input class=${el.param} name="${
-          el.type
-        }-group" type=${el.type} value=${
-          get(el.param) ? get(el.param) : set(el.param) && el.start
-        }
+        : `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" value="${
+            get(el.param) ? get(el.param) : set(el.param, el.start) && el.start
+          }"
    </div>`;
-  });
+    return acc + dom;
+  }, "");
 };
 
 const descriptionParse = text => {
@@ -188,9 +203,11 @@ const init = () => {
 
   //dom
   const bnr = $(".mx-banner");
-  const fromTo = `<div class="mx-banner-from-to"><span class="mx-banner-from">${get(
-    "fav-dir-from"
-  )}</span><span class="mx-banner-to">${get("fav-dir-to")}</span></div> `;
+  const fromTo = `<div class="mx-banner-from-to"><span class="mx-banner-from">${
+    direction(cityReg, recDir)[0]
+  }</span><span class="mx-banner-to">${
+    direction(cityReg, recDir)[1]
+  }</span></div> `;
   const price = `<span class="mx-banner-price">${get("price")}</span>`;
   const promo = `<span class="mx-banner-promo">${promocd}</span>`;
   const desc = `<span class="mx-banner-desc">${descriptionParse(

@@ -14,24 +14,12 @@ const test_data = [
   },
   { param: "burn", start: 0, name: "к Сгоранию", type: "text" },
   { param: "promo", start: 0, name: "Промокод флаг", type: "checkbox" },
+  { param: "promocode", start: "S548dft57F", name: "Промокод", type: "text" },
   {
     param: "desc-promo",
     start:
       "Скидка на авиабилет_Москва-Санкт-Петербург 10% Действует до 15.08.2018.",
     name: "Описание промокода",
-    type: "text"
-  },
-  { param: "promocode", start: "S548dft57F", name: "Промокод", type: "text" },
-  {
-    param: "discount",
-    start: 10,
-    name: "Размер скидки в процентах",
-    type: "text"
-  },
-  {
-    param: "discount-date",
-    start: "25.05.2018",
-    name: "Действие скидки",
     type: "text"
   }
 ];
@@ -66,21 +54,23 @@ const matchSearch = (x, arr) => {
 
 // рендеринг полей формы
 const dataFields = data => {
-  return data.map(el => {
-    return el.type === "checkbox" || el.type === "radio"
-      ? `<div><label>${el.name}</label><input class=${el.param} name="${
-          el.type
-        }-group" type=${el.type} ${
-          get(el.param) ? "checked" : set(el.param, el.start)
-        }>
+  return data.reduce((acc, el) => {
+    const dom =
+      el.type === "checkbox" || el.type === "radio"
+        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" ${
+            get(el.param) ? "checked" : set(el.param, el.start)
+          }>
    </div>`
-      : `<div><label>${el.name}</label><input class=${el.param} name="${
-          el.type
-        }-group" type=${el.type} value=${
-          get(el.param) ? get(el.param) : set(el.param) && el.start
-        }
+        : `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" value="${
+            get(el.param) ? get(el.param) : set(el.param, el.start) && el.start
+          }"
    </div>`;
-  });
+    return acc + dom;
+  }, "");
 };
 
 // wrapper
@@ -147,7 +137,7 @@ const init = () => {
   const summ = `<span class="mx-banner-summ">${x}</span>`;
   const discountDkl = `<span class="discount-dkl-head">Со скидкой</span><span class="discount-dkl">${z}</span><span class="discount-dkl-prop">* Сгорают в течении 3 месяцев</span>`;
   const discountNoDkl = `<span class="discount-no-dkl">${y}</span>`;
-  const discountNoDklDesk = `<span class="discount-no-dkl-desk">*Для того чтобы начислить бонусы<br>за прошлые полеты<br>в течении 3-х месяцев<br>зарегистрируйтесь в программе «Крылья»</span>`;
+  const discountNoDklDesk = `<span class="discount-no-dkl-desk">*Для того чтобы начислить бонусы<br>за прошлые полеты в течении 3-х месяцев<br>зарегистрируйтесь в программе «Крылья»</span>`;
   const promo = `<span class="mx-banner-promo">${get("promocode")}</span>`;
   const promo_bottom = `<span class="mx-banner-promo __bottom">${get(
     "promocode"
@@ -162,6 +152,7 @@ const init = () => {
   }</span>`;
   const btn = text =>
     `<button class="mx-banner-btn">${text ? text : "Выбрать"}</button>`;
+  console.log(research);
   switch (research) {
     case -1: //
       bnr.append(head1).append(btn());

@@ -14,17 +14,23 @@
   text-align: center;
   color: #fff;
   box-sizing: border-box;
-  padding: 45px 30px; /**/
+  padding: 45px 30px;
 }
-.__three .mx-banner {
-  padding: 70px 30px;
+.__two.mx-banner,
+.__three.mx-banner,
+.__four.mx-banner,
+.__six.mx-banner {
+  padding: 30px 30px;
+}
+.__seven.mx-banner {
+  padding: 25px 30px;
 }
 .mx-banner.__active {
   top: 10px;
 }
 .mx-banner-close {
   position: absolute;
-  top: 0;
+  top: 0px;
   right: 5px;
   font-size: 28px;
   color: #fff;
@@ -52,47 +58,54 @@
 .mx-banner-btn:hover {
   background-color: #c3001e;
 }
-.mx-banner-from,
-.mx-banner-to {
-  font-size: 52px;
-  font-weight: bold;
-  display: block;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  line-height: 1.2;
-  font-family: "Roboto", sans-serif !important;
+.__seven .mx-banner-btn {
+  bottom: -16px;
 }
-.mx-banner-price {
-  line-height: 1;
-  font-size: 60px;
-  font-family: "Roboto", sans-serif !important;
-  font-weight: 100;
-}
-.mx-banner-price:before {
-  content: "от";
-  margin-right: 10px;
-  font-size: 30px;
-  vertical-align: top;
-  line-height: 1.5;
-}
-.mx-banner-price:after {
-  content: "₽";
-  margin-left: 10px;
-  font-family: "Roboto", sans-serif !important;
-  font-size: 30px;
-  vertical-align: top;
-  line-height: 1.3;
-}
-.mx-banner-text {
+.mx-banner-txt {
   font-size: 14px;
   font-family: "Roboto", sans-serif !important;
   letter-spacing: 1px;
-  line-height: 1.2;
-  display: block;
-  margin-top: 10px;
+  line-height: 1.5;
+  text-transform: uppercase;
 }
-.__four .mx-banner-text {
-  font-size: 10px;
+.__two .mx-banner-txt,
+.__three .mx-banner-txt {
+  font-size: 12px;
+  font-weight: 300;
+}
+.mx-banner-from-to {
+  margin: 30px 0;
+}
+.__seven .mx-banner-from-to {
+  margin: 0;
+}
+.__two .mx-banner-from-to,
+.__four .mx-banner-from-to,
+.__five .mx-banner-from-to,
+.__six .mx-banner-from-to {
+  margin: 10px 0;
+}
+.__three .mx-banner-from-to {
+  margin: 10px 0 0;
+}
+.mx-banner-from,
+.mx-banner-to {
+  font-size: 30px;
+  display: block;
+  text-transform: uppercase;
+  /*font-family: "helveticaneuecyrbold";*/
+  line-height: 1.2;
+}
+.__two.mx-banner-from,
+.__two.mx-banner-to {
+  font-size: 23px;
+}
+.mx-banner-pretext {
+  display: block;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: bold;
+  font-size: 24px;
 }
 .mx-banner-promo {
   padding: 24px 67px 10px 50px;
@@ -118,86 +131,116 @@
   font-weight: 400;
   letter-spacing: 0.6px;
 }
-.mx-banner-profit {
+.mx-banner-desc {
   display: inline-block;
-  font-size: 13px;
   text-align: left;
-  letter-spacing: 1px;
+  font-size: 11px;
+  letter-spacing: 1.6px;
   font-family: "Roboto", sans-serif !important;
   font-weight: 100;
+  float: left;
+  vertical-align: bottom;
+  line-height: 1.4;
+  margin-top: 14px;
 }
 .mx-banner-disc {
   display: inline-block;
-  font-size: 50px;
+  font-size: 44px;
   font-family: "Roboto", sans-serif !important;
-  letter-spacing: -3.1px;
+  letter-spacing: -3.3px;
+  margin-top: 13px;
 }
-
 .mx-banner-exp {
   display: block;
+  float: left;
+  text-align: left;
+  font-size: 11px;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 100;
+  letter-spacing: 0.8px;
+  line-height: 1.2;
+  margin-top: 5px;
+}
+.__seven .mx-banner-exp {
   margin-bottom: 5px;
+}
+.mx-banner-bonuses {
+  display: block;
+  float: left;
+  line-height: 2;
+  font-size: 15px;
   font-family: "Roboto", sans-serif !important;
-  font-size: 12px;
-  letter-spacing: 1.6px;
-  line-height: 1.2;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+.__three .mx-banner-bonuses {
+  line-height: 1.5;
+}
+.__five .mx-banner-bonuses {
+  display: block;
+  width: 100%;
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.3;
+}
+.mx-banner-light {
+  display: block;
+  font-size: 13px;
+  font-family: "Roboto", sans-serif !important;
+  line-height: 2.1;
+  letter-spacing: 0.1px;
   font-weight: 100;
 }
-.mx-banner-balance {
-  display: block;
-  text-transform: uppercase;
-  line-height: 1.2;
+.__five .mx-banner-light,
+.__six .mx-banner-light {
+  line-height: 1.5;
+  font-size: 11px;
+}
+.__five .mx-banner-light {
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+.mx-banner-profit {
+  font-size: 50px;
   font-family: "Roboto", sans-serif !important;
-  font-size: 28px;
-}
-.__two .mx-banner-balance {
-  margin-top: 15px;
-}
-.mx-banner-balance:before {
-  content: "Ваш баланс";
   display: block;
-  text-transform: uppercase;
+  margin-top: 5px;
+  font-weight: 300;
+}
+.mx-banner-offer {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 100;
   font-size: 14px;
+  letter-spacing: 0.8px;
+  line-height: 1.3;
+}
+.__six .mx-banner-profit {
+  font-size: 62px;
+}
+.mx-banner-profit:before {
+  content: "от";
+  font-size: 29px;
   font-family: "Roboto", sans-serif !important;
-  font-weight: 500;
-}
-.mx-banner-balance:after {
-  content: "Суммируйте скидку с бонусами.";
-  display: block;
-  font-size: 12px;
-  font-family: "Roboto", sans-serif !important;
-  text-transform: none;
-  font-weight: 100;
-  letter-spacing: 1.3px;
-}
-.__two .mx-banner-balance:after {
-  display: none;
-}
-.mx-banner-nodkl {
-  font-size: 40px;
-  font-family: "Roboto", sans-serif !important;
-  display: inline-block;
-  line-height: 1.2;
-  letter-spacing: 1px;
-  font-weight: 100;
-}
-.mx-banner-nodkl:before {
-  content: "Ваша скидка";
-  display: block;
-  margin-top: 60px;
-  text-transform: uppercase;
-  font-size: 18px;
-  letter-spacing: 1px;
-  font-family: "Roboto", sans-serif !important;
-  font-weight: 600;
-}
-.mx-banner-nodkl:after {
-  content: "₽ *";
-  display: inline-block;
-  font-family: helvetica;
-  font-size: 22px;
-  margin-left: 8px;
   vertical-align: top;
-  line-height: 1.9;
+  line-height: 1.2;
+  margin-right: 5px;
+}
+.__six .mx-banner-profit:before {
+  line-height: 2;
+  font-size: 24px;
+}
+.mx-banner-profit:after {
+  content: "₽ *";
+  font-family: "Roboto", sans-serif !important;
+  margin-left: 10px;
+  font-size: 26px;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.__six .mx-banner-profit:after {
+  font-size: 24px;
+  line-height: 2;
 }
 /* Тестовая форма */
 .test-data-form {
@@ -227,4 +270,10 @@
   height: 20px;
   text-indent: 20px;
   font-size: 12px;
+}
+.mx-banner-burn {
+  display: block;
+  width: 100%;
+  float: left;
+  font-family: "Roboto", sans-serif !important;
 }

@@ -1,0 +1,345 @@
+/* Баннер */
+.mx-banner {
+  display: block;
+  width: 100%;
+  height: 187px;
+  position: fixed;
+  left: 50%;
+  bottom: -100%;
+  background: #ccc;
+  transition: all 0.5s ease;
+  z-index: 999999;
+  background-size: cover;
+  background-position: center center;
+  text-align: left;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 30px;
+  transform: translate(-50%, 0);
+}
+.mx-banner-close {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  font-size: 28px;
+  color: #fff;
+  transform: rotate(-45deg);
+  cursor: pointer;
+  font-family: initial;
+}
+.mx-banner.__two {
+}
+.mx-banner.__four {
+  padding: 20px;
+}
+.mx-banner.__active {
+  bottom: 0;
+}
+.mx-banner.__index {
+  text-align: center;
+  transform: none;
+  position: fixed;
+  bottom: 0 !important;
+  left: 0px !important;
+}
+.mx-banner-btn {
+  background: #f34558;
+  color: #fff;
+  border: none;
+  line-height: 3.5;
+  padding: 0px 39px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 400;
+}
+.__two .mx-banner-btn,
+.__three .mx-banner-btn {
+  transform: none;
+  bottom: 20px;
+  line-height: 4;
+}
+.__almost .mx-banner-btn {
+  transform: translateX(-50%);
+}
+.__four .mx-banner-btn {
+  left: 50%;
+}
+.__seven .mx-banner-btn {
+  transform: none;
+  bottom: 30px;
+}
+.mx-banner-offer {
+  font-family: "Roboto", sans-serif !important;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+.mx-banner-btn:hover {
+  background-color: #c3001e;
+}
+.mx-banner-txt {
+  font-size: 15px;
+  font-family: "Roboto", sans-serif !important;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 100;
+  text-align: center;
+  display: block;
+}
+.__two .mx-banner-txt {
+  font-size: 13px;
+}
+
+.__four .mx-banner-txt {
+  font-size: 13px;
+  text-align: center;
+  float: left;
+  width: 100%;
+  line-height: 2;
+}
+.__five .mx-banner-txt {
+  font-size: 10px;
+}
+
+.mx-banner-from-to {
+  line-height: 1;
+  display: block;
+  font-family: "Roboto", sans-serif !important;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+}
+.mx-banner-burn {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+.__two .mx-banner-from-to {
+  line-height: 1.2;
+  text-align: center;
+}
+.__three .mx-banner-from-to,
+.__four .mx-banner-from-to {
+  font-size: 22px;
+  text-align: center;
+  float: left;
+  width: 100%;
+  line-height: 1;
+  margin-left: -1px;
+}
+..__four .mx-banner-from-to {
+  text-align: left;
+}
+.__five .mx-banner-from-to {
+  line-height: 1;
+}
+.mx-banner-pretext {
+  display: block;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif !important;
+  font-size: 20px;
+}
+.__four .mx-banner-pretext {
+  float: left;
+  font-size: 22px;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: bold;
+  line-height: 1.4;
+}
+.mx-banner-promo {
+  padding: 8px 15px 2px;
+  border: 1.5px solid #fff;
+  border-radius: 15px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif !important;
+  letter-spacing: 1px;
+  display: block;
+  position: absolute;
+  left: 15px;
+  bottom: 15px;
+}
+.mx-banner-promo:before {
+  content: "ваш промокод";
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  font-size: 6px;
+}
+.mx-banner-desc {
+  display: inline-block;
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300;
+  float: left;
+  vertical-align: bottom;
+  line-height: 1.4;
+}
+.mx-banner-disc {
+  font-size: 25px;
+  float: right;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300;
+  line-height: 0.8;
+  margin-right: 15px;
+}
+.mx-discount-date {
+  text-align: left;
+  font-size: 12px;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300;
+  display: inline-block;
+  float: left;
+  width: 100%;
+  line-height: 0.5;
+}
+.mx-banner-exp {
+  display: block;
+  float: left;
+  text-align: left;
+  font-size: 11px;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  margin-top: 10px;
+}
+.__three .mx-banner-exp {
+  margin-top: 0;
+}
+.mx-banner-bonuses {
+  display: block;
+  text-align: center;
+  float: left;
+  line-height: 1.5;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.__three .mx-banner-bonuses {
+  line-height: 2;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+}
+.__five .mx-banner-bonuses {
+  display: block;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.3;
+  font-size: 13px;
+}
+.mx-banner-light {
+  float: left;
+  font-family: "Roboto", sans-serif !important;
+  font-size: 9px;
+  line-height: 1;
+}
+.__four .mx-banner-light {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.__five .mx-banner-light {
+  line-height: 1.5;
+  font-size: 11px;
+}
+.__five .mx-banner-light {
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+.mx-banner-profit {
+  font-size: 50px;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300;
+  display: block;
+  margin-top: 5px;
+}
+.__four .mx-banner-profit {
+  float: left;
+  margin-left: 15px;
+  font-size: 40px;
+  line-height: 1;
+  margin-top: 0;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 500;
+}
+.__six .mx-banner-profit {
+  text-align: center;
+  line-height: 0.8;
+}
+.mx-banner-profit:before {
+  content: "от";
+  font-size: 20px;
+  font-family: "Roboto", sans-serif !important;
+  vertical-align: top;
+  line-height: 1.4;
+  margin-right: 5px;
+}
+.__four .mx-banner-profit:before {
+  content: "от";
+  font-size: 14px;
+  vertical-align: top;
+  line-height: 2;
+  margin-right: 5px;
+  text-transform: uppercase;
+  font-family: inherit;
+}
+.mx-banner-profit:after {
+  content: "₽ *";
+  font-family: "Roboto", sans-serif !important;
+  margin-left: 10px;
+  font-size: 18px;
+  vertical-align: top;
+  line-height: 1.5;
+}
+.__four .mx-banner-profit:after {
+  margin-left: 6px;
+  font-size: 22px;
+  vertical-align: top;
+  line-height: 1.2;
+  font-weight: 300;
+}
+.__three .mx-banner-promo,
+.__two .mx-banner-promo {
+  padding: 10px 30px 2px;
+  border: 1.5px solid #fff;
+  border-radius: 20px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif !important;
+  letter-spacing: 1px;
+  display: block;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+}
+.__seven .mx-banner-promo {
+  padding: 8px 30px 1px;
+  left: 30px;
+  bottom: 30px;
+}
+.__three .mx-banner-disc {
+  font-size: 25px;
+  float: right;
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 300;
+  line-height: 0.8;
+  margin-right: 15px;
+}

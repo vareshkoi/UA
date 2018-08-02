@@ -115,10 +115,9 @@
   letter-spacing: -1.9px;
   font-size: 35px;
 }
-.mx-banner-desc:before {
-  content: "Скидка на доп. услуги";
+/**/
+.mx-banner-desc-text {
   font-size: 15px;
-  width: 90px;
   display: inline-block;
   text-align: left;
   font-family: "Roboto", sans-serif !important;

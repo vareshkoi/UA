@@ -5,19 +5,12 @@ const get = name => visitor.getData(name);
 /* Данные для тестовой таблицы*/
 const test_data = [
   { param: "it-is-dkl", start: 0, name: "ДКЛ", type: "checkbox" },
-  { param: "promo", start: "", name: "Промокод", type: "text" },
+  { param: "promo", start: "SJW123DF", name: "Промокод", type: "text" },
   {
     param: "desc-promo",
     start:
       "Скидка на авиабилет_Москва-Санкт-Петербург 10% Действует до 15.08.2018.",
     name: "Описание промокода",
-    type: "text"
-  },
-  { param: "disc", start: 10, name: "Скидка", type: "text" },
-  {
-    param: "exp",
-    start: "15.08.2018",
-    name: "Срок действия скидки",
     type: "text"
   },
   {
@@ -34,7 +27,7 @@ const test_data = [
     type: "text"
   },
   {
-    param: "sensitivitys",
+    param: "sensitiveness",
     start: 0,
     name: "Чувствительность",
     type: "checkbox"
@@ -45,10 +38,15 @@ const test_data = [
     name: "Регистрация < 3м ",
     type: "checkbox"
   },
-  { param: "search-from-decod", start: "", name: "Пункт вылета", type: "text" },
+  {
+    param: "search-from-decod",
+    start: "Москва",
+    name: "Пункт вылета",
+    type: "text"
+  },
   {
     param: "search-to-decod",
-    start: "",
+    start: "Санкт-Петербург",
     name: "Пункт назначения",
     type: "text"
   },
@@ -64,6 +62,7 @@ const test_data = [
 const dkl = [
   [
     [0, 0, 0, 0, 0, 1],
+    [0, 0, 1, 0, 0, 1],
     [0, 0, 0, 1, 0, 1],
     [0, 0, 0, 0, 1, 1],
     [0, 0, 0, 1, 1, 1]
@@ -103,13 +102,7 @@ const dkl = [
     [1, 1, 0, 1, 1, 1],
     [1, 1, 0, 0, 1, 1],
     [1, 1, 0, 0, 0, 1],
-    [0, 1, 1, 1, 0, 1],
-    [0, 1, 1, 1, 1, 1],
-    [0, 1, 1, 0, 1, 1],
     [0, 1, 1, 0, 0, 1],
-    [1, 1, 1, 1, 0, 1],
-    [1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 0, 1, 1],
     [1, 1, 1, 0, 0, 1]
   ],
   [[]],
@@ -142,7 +135,7 @@ const expired_bonus = Number(get("expired-bonus"));
 const bonus = Number(get("bonus"));
 const acrl3m_bonus = Number(get("acrl3m-bonus"));
 const promo = get("promo");
-const sensitivity = !!get("sensitivitys");
+const sensitivity = !!get("sensitiveness");
 const search_from_decod = get("search-from-decod");
 const search_to_decod = get("search-to-decod");
 const search_dep = get("search-dep");
@@ -151,7 +144,7 @@ const variant = [
   expired_bonus > 0,
   bonus > 10000,
   acrl3m_bonus > 100,
-  promo ? promo.length > 0 : 0,
+  promo !== undefined ? (promo.length > 0 ? promo : 0) : 0,
   sensitivity === true,
   registr === true,
   [
@@ -174,7 +167,6 @@ const research = matchSearch(
         return i === 2 ? acc : acc.concat(el);
       }, [])
     : variant.reduce((acc, el, i) => {
-        console.log(acc);
         return i > 1 && i !== 5 ? acc.concat(el) : acc;
       }, []),
   get("it-is-dkl") ? dkl : nodkl
@@ -183,23 +175,25 @@ console.log("research: ", research);
 
 /* Тестовая форма */
 
-/*рендеринг полей формы*/
+// рендеринг полей формы
 const dataFields = data => {
-  return data.map(el => {
-    return el.type === "checkbox" || el.type === "radio"
-      ? `<div><label>${el.name}</label><input class=${el.param} name="${
-          el.type
-        }-group" type=${el.type} ${
-          get(el.param) ? "checked" : set(el.param, el.start)
-        }>
+  return data.reduce((acc, el) => {
+    const dom =
+      el.type === "checkbox" || el.type === "radio"
+        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" ${
+            get(el.param) ? "checked" : set(el.param, el.start)
+          }>
    </div>`
-      : `<div><label>${el.name}</label><input class=${el.param} name="${
-          el.type
-        }-group" type=${el.type} value=${
-          get(el.param) ? get(el.param) : set(el.param) && el.start
-        }
+        : `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" value="${
+            get(el.param) ? get(el.param) : set(el.param, el.start) && el.start
+          }"
    </div>`;
-  });
+    return acc + dom;
+  }, "");
 };
 
 /*wrapper тестовой формы*/
@@ -210,55 +204,6 @@ const dataForm = data =>
 
 const banner = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:aircraft_tail-1.png)!\')"><i class='mx-banner-close'>+</i><button class="mx-banner-btn">Продолжить</button></div>`;
 const init = () => {
-  /*сбор данных из поисковой формы*/
-  const selectArea = { val: "" };
-  if (location.href === "https://www.uralairlines.ru/") {
-    set("search-from-decod", $("[name=origin-city-name]").val());
-    set(
-      "search-from",
-      $("[name=origin-city-name]")
-        .next()
-        .text()
-    );
-    // set("search_adlt", $("[name=count-aaa]").val());
-    $(".sel_option").on("click", function() {
-      selectArea.val = $(this)
-        .text()
-        .split("\n")[2]
-        .split(" ")
-        .reverse()[0];
-      setTimeout(function() {
-        console.log("selArea", selectArea);
-        if (
-          selectArea.val ===
-          $("[name=origin-city-name]")
-            .next()
-            .text()
-        ) {
-          set("search-from-decod", $("[name=origin-city-name]").val());
-          set("search-from", selectArea.val);
-          console.log(get("search-from"));
-        } else if (
-          selectArea.val ===
-          $("[name=destination-city-name]")
-            .next()
-            .text()
-        ) {
-          set("search-to", selectArea.val);
-          set("search-to-decod", $("[name=destination-city-name]").val());
-        }
-      }, 1000);
-      setTimeout(function() {
-        $("#datepicker1").on("change", function() {
-          set("search-dep", $("#datepicker1").val());
-        });
-        $("#datepicker2").on("change", function() {
-          set("search-ret", $("#datepicker2").val());
-        });
-      }, 1000);
-    });
-  }
-
   const descriptionParse = text => {
     const discount = text.match(/\d+\%/g); // ищем скидку
     discount !== null ? discount.toString() : "";
@@ -269,10 +214,6 @@ const init = () => {
       expirationText: pool[1]
     };
   };
-
-  console.log(
-    "Скидка на авиабилет_Москва-Санкт-Петербург 10% Действует до 15.08.2018."
-  );
   /**/
 
   /*Компоненты баннера*/
@@ -284,17 +225,15 @@ const init = () => {
   const to = `<span class="mx-banner-to">${search_to_decod}</span>`;
   const fromTo = `<div class="mx-banner-from-to">${from}${to}</span>`;
   const promo = `<span class="mx-banner-promo">${get("promo")}</span>`;
-  //const desc = `<span class="mx-banner-desc">Скидка на авиабилет<br>${search_from_decod}-${search_to_decod}</span>`;
   const desc = `<span class="mx-banner-desc">${descriptionParse(
     get("desc-promo")
   ).discountText.replace(/_/gi, "<br>")}<br>${descriptionParse(
     get("desc-promo")
   ).expirationText.replace(/_/gi, "<br>")}</span>`;
-  // const disc = `<span class="mx-banner-disc">${get("disc")}%</span>`;
   const disc = `<span class="mx-banner-disc">${
     descriptionParse(get("desc-promo")).discount
   }</span>`;
-  const exp = `<span class="mx-banner-exp"><br>Количество билетов со скидкой по<br>промокоду ограничено!</span>`;
+  const exp = `<span class="mx-banner-exp">Количество билетов со скидкой по<br>промокоду ограничено!</span>`;
   const bonuses = `<span class="mx-banner-bonuses">Ваш баланс: ${bonus} бонусов<span>`;
   const profit = burn =>
     `<span class="mx-banner-pretext">Со скидкой</span><span class="mx-banner-profit">${burn}</span>`;
@@ -379,18 +318,13 @@ const init = () => {
   /*адаптивнный текст */
   const arvTxt = $(".mx-banner-to");
   const depTxt = $(".mx-banner-from");
-  const bnrW = $(".mx-banner").width();
   const heightK = 1;
-  let widthK = 1;
 
   while (arvTxt.height() > 32) {
     arvTxt.css({
       "font-size": parseInt(arvTxt.css("font-size")) - 2 + "px"
     });
   }
-  const arvW = arvTxt.width();
-  const depW = depTxt.width();
-
   depTxt.css({
     "font-size": parseInt(arvTxt.css("font-size")) * heightK + "px"
   });
@@ -398,7 +332,6 @@ const init = () => {
   /*Показать баннер*/
   research !== -1
     ? setTimeout(function() {
-        console.log("show");
         bnr.addClass("__active");
       }, 1000)
     : null;

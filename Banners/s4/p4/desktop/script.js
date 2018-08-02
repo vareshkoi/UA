@@ -54,11 +54,10 @@ function init() {
     )}</span>`;
   };
 
-  $("body").append(banner);
-  const bnr = $(".mx-banner");
   $("body")
     .append(dataForm(test_data))
     .append(banner);
+  const bnr = $(".mx-banner");
 
   if (utm.length > 1) {
     utm = utm.reverse()[0];
@@ -70,7 +69,12 @@ function init() {
       }`
     ).done(data => {
       // запрос
-      $(".mx-banner").append(stuff(data));
+      bnr.append(stuff(data));
+      if (get("bonus") > 100 && get("it-is-dkl")) {
+        bnr.append(
+          `<span class="mx-bonus">Ваш баланс: ${get("bonus")} бонусов</span>`
+        );
+      }
       // adaptive text
       const arvTxt = $(".mx-banner-to");
       const depTxt = $(".mx-banner-from");
@@ -99,6 +103,21 @@ function init() {
   }
 
   /* TODO: собрать линк и отдать в cеттер -->>> set("link", val) */
+
+  // обработчик событий формы
+  $(".ok-test").click(e => {
+    e.preventDefault();
+    return (
+      $(".test-data-form input").map((i, _) => {
+        const el = $(_),
+          type = el.attr("type"),
+          name = el.attr("class");
+        return type === "checkbox"
+          ? el.is(":checked") ? set(name, true) : set(name, false)
+          : set(name, el.val());
+      }) && location.reload()
+    );
+  });
 
   // onBtnClick
   $(".mx-banner-btn").click(e => {

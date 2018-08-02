@@ -4,6 +4,12 @@ const get = name => visitor.getData(name);
 //data
 const test_data = [
   { param: "it-is-dkl", start: 0, name: "ДКЛ", type: "checkbox" },
+  {
+    param: "friends",
+    start: 0,
+    name: "Есть еще пассажиры в заказе",
+    type: "checkbox"
+  },
   { param: "card-lvl", start: "Синий", name: "Уровень карты", type: "text" },
   { param: "fav-place", start: "4F", name: "Любимое место", type: "text" }
 ];
@@ -32,21 +38,23 @@ const dataForm = data =>
     data
   )}</form>`;
 
-console.log(get("fav-place"));
-const banner = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:kreslo.png)!\')"><span class="mx-banner-head">Успейте забронировать ваше любимое кресло</span><span class="mx-banner-armchair">${
+const banner1 = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:kreslo.png)!\')"><span class="mx-banner-head">Успейте забронировать ваше любимое кресло</span><span class="mx-banner-armchair">${
   get("fav-place") === "undefined" ? "4F" : get("fav-place")
 }</span><i class='mx-banner-close'>+</i><button class='mx-banner-btn'>Выбрать</button></div>`;
+const banner2 = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:kreslo.png)!\')"><span class="mx-banner-head">Выберите ваше любимое место</span><br><br><span class="mx-banner-head">Оформите дополнительный багаж со скидкой</span><i class='mx-banner-close'>+</i><button class='mx-banner-btn'>Выбрать</button></div>`;
 const init = () => {
   const body = $("body");
-  body.append(dataForm(test_data)).append(banner);
-  const bnr = $(".mx-banner");
+  body.append(dataForm(test_data));
+  get("friends") ? body.append(banner2) : body.append(banner1);
 
   // show
-  get("card-lvl") !== "Синий"
-    ? setTimeout(function() {
-        bnr.addClass("__active");
-      }, 1000)
-    : null;
+  setTimeout(function() {
+    if (get("it-is-dkl") && get("card-lvl") !== "Синий") {
+      $(".mx-banner").addClass("__active");
+    } else if (!get("it-is-dkl")) {
+      $(".mx-banner").addClass("__active");
+    }
+  }, 1000);
 
   // hide
   $(".mx-banner-close").click(function() {
