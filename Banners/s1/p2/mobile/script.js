@@ -1,7 +1,6 @@
 const set = (name, val) => visitor.setData(name, val);
 const get = name => visitor.getData(name);
 
-//data
 //roadmap
 const dkl = [
   [[0, 0, 0, 0, 0]],
@@ -28,40 +27,17 @@ const matchSearch = (x, arr) => {
   });
   return result;
 };
-/* Тестовая форма */
-// рендеринг полей формы
-const dataFields = data => {
-  return data.reduce((acc, el) => {
-    const dom =
-      el.type === "checkbox" || el.type === "radio"
-        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" ${
-            get(el.param) ? "checked" : set(el.param, el.start)
-          }>
-   </div>`
-        : `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" value="${
-            get(el.param) ? get(el.param) : set(el.param, el.start) && el.start
-          }"
-   </div>`;
-    return acc + dom;
-  }, "");
+
+// Проверка промокода
+const promoCheck = promo => {
+    return promo ? (promo.length > 0 ? 1 : 0) : 0;
 };
 
-// wrapper
-const dataForm = data =>
-  `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
-    data
-  )}</form>`;
-
 /* Готовим данные */
-
 const x = get("bonuses");
 const y = get("points");
 const z = get("burn");
-const promocd = get("promo");
+const promocd = promoCheck(get("promo"));
 
 const variant = [
   x < 100, //

@@ -1,7 +1,11 @@
 const set = (name, val) => visitor.setData(name, val);
 const get = name => visitor.getData(name);
 
-//data
+/*
+* TEST FORM
+* */
+
+// Interface
 const test_data = [
   { param: "it-is-dkl", start: 0, name: "ДКЛ", type: "checkbox" },
   { param: "dkl-lvl", start: "Синий", name: "Уровень ДКЛ", type: "text" },
@@ -18,36 +22,35 @@ const test_data = [
   { param: "meal-flg", start: 0, name: "Питание", type: "checkbox" }
 ];
 
-/* Тестовая форма */
-// рендеринг полей формы
+// Render
 const dataFields = data => {
   return data.reduce((acc, el) => {
-    const dom =
-      el.type === "checkbox" || el.type === "radio"
+    const dom = param => {
+      return el.type === "checkbox" || el.type === "radio"
         ? `<div><label>${el.name}</label><input class="${el.param}" name="${
             el.type
-          }-group" type="${el.type}" ${
-            get(el.param) ? "checked" : set(el.param, el.start)
-          }>
+          }-group" type="${el.type}" ${param ? "checked" : ""}>
    </div>`
-        : `<div><label>${el.name}</label><input class="${el.param}" name="${
+        : `<div><label>${el.name}</label><input class="${el.param}" type="${
             el.type
-          }-group" type="${el.type}" value="${
-            get(el.param) ? get(el.param) : set(el.param, el.start) && el.start
-          }"
+          }" value="${param !== undefined ? param : el.start}">
    </div>`;
-    return acc + dom;
+    };
+    return acc + dom(get(el.param));
   }, "");
 };
 
-// wrapper
+// Wrapper
 const dataForm = data =>
   `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
     data
   )}</form>`;
 
-/* Готовим данные */
+/*
+* END OF TEST FORM
+* */
 
+/* Готовим данные */
 // распаковываем из кук
 const dispatch = names => {
   return names.reduce((acc, el) => {
