@@ -1,33 +1,43 @@
 const set = (name, val) => visitor.setData(name, val);
 const get = name => visitor.getData(name);
+
+/*
+* TEST FORM
+* */
+
+// Interface
 const test_data = [
   { param: "it-is-dkl", start: 0, name: "ДКЛ", type: "checkbox" },
   { param: "bonus", start: 0, name: "Бонусы ДКЛ", type: "text" }
 ];
-// рендеринг полей формы
+
+// Render
 const dataFields = data => {
-  return data.map(el => {
-    return el.type === "checkbox" || el.type === "radio"
-      ? `<div><label>${el.name}</label><input class=${el.param} name="${
-          el.type
-        }-group" type=${el.type} ${
-          get(el.param) ? "checked" : set(el.param, el.start)
-        }>
+  return data.reduce((acc, el) => {
+    const dom = param => {
+      return el.type === "checkbox" || el.type === "radio"
+        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" ${param ? "checked" : ""}>
    </div>`
-      : `<div><label>${el.name}</label><input class=${el.param} name="${
-          el.type
-        }-group" type=${el.type} value=${
-          get(el.param) ? get(el.param) : set(el.param) && el.start
-        }
+        : `<div><label>${el.name}</label><input class="${el.param}" type="${
+            el.type
+          }" value="${param !== undefined ? param : el.start}">
    </div>`;
-  });
+    };
+    return acc + dom(get(el.param));
+  }, "");
 };
 
-// wrapper
+// Wrapper
 const dataForm = data =>
   `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
     data
   )}</form>`;
+
+/*
+* END OF TEST FORM
+* */
 
 // межсценарный приоритет
 let rank = parseInt(get("rank"));

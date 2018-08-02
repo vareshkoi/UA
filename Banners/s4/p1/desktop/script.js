@@ -1,7 +1,11 @@
 const set = (name, val) => visitor.setData(name, val);
 const get = name => visitor.getData(name);
 
-//data
+/*
+* TEST FORM
+* */
+
+// Interface
 const test_data = [
   { param: "promocd", start: "S548dft57F", name: "Промокод", type: "text" },
   {
@@ -12,6 +16,34 @@ const test_data = [
     type: "text"
   }
 ];
+
+// Render
+const dataFields = data => {
+  return data.reduce((acc, el) => {
+    const dom = param => {
+      return el.type === "checkbox" || el.type === "radio"
+        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" ${param ? "checked" : ""}>
+   </div>`
+        : `<div><label>${el.name}</label><input class="${el.param}" type="${
+            el.type
+          }" value="${param !== undefined ? param : el.start}">
+   </div>`;
+    };
+    return acc + dom(get(el.param));
+  }, "");
+};
+
+// Wrapper
+const dataForm = data =>
+  `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
+    data
+  )}</form>`;
+
+/*
+* END OF TEST FORM
+* */
 
 //roadmap
 const rmap = [1, 1];
@@ -28,28 +60,6 @@ const variant = [promocd, promocdDesc].map(el => {
 const research = variant.toString() === rmap.toString();
 console.log(rmap, variant, research);
 
-/* Тестовая форма */
-// рендеринг полей формы
-const dataFields = data => {
-  return data.reduce((acc, el) => {
-    const dom =
-      el.type === "checkbox" || el.type === "radio"
-        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" ${
-            get(el.param) ? "checked" : set(el.param, el.start)
-          }>
-   </div>`
-        : `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" value="${
-            get(el.param) ? get(el.param) : set(el.param, el.start) && el.start
-          }"
-   </div>`;
-    return acc + dom;
-  }, "");
-};
-
 const descriptionParse = text => {
   const discount = text.match(/\d+\%/g).toString(); // ищем скидку
   const pool = text.split(discount); // разбиваем текст по смыслу
@@ -59,12 +69,6 @@ const descriptionParse = text => {
     expirationText: pool[1]
   };
 };
-
-// wrapper
-const dataForm = data =>
-  `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
-    data
-  )}</form>`;
 
 const banner = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:cookies.png)!\')"><i class='mx-banner-close'>+</i><button class='mx-banner-btn'>Выбрать</button></div>`;
 const init = () => {

@@ -1,7 +1,11 @@
 const set = (name, val) => visitor.setData(name, val);
 const get = name => visitor.getData(name);
 
-//data
+/*
+* TEST FORM
+* */
+
+// Interface
 const test_data = [
   { param: "it-is-dkl", start: 0, name: "ДКЛ", type: "checkbox" },
   { param: "bonus", start: "0", name: "Бонусы (ДКЛ)", type: "text" },
@@ -40,12 +44,39 @@ const test_data = [
   { param: "price", start: 2999, name: "Тариф", type: "text" }
 ];
 
+// Render
+const dataFields = data => {
+  return data.reduce((acc, el) => {
+    const dom = param => {
+      return el.type === "checkbox" || el.type === "radio"
+        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" ${param ? "checked" : ""}>
+   </div>`
+        : `<div><label>${el.name}</label><input class="${el.param}" type="${
+            el.type
+          }" value="${param !== undefined ? param : el.start}">
+   </div>`;
+    };
+    return acc + dom(get(el.param));
+  }, "");
+};
+
+// Wrapper
+const dataForm = data =>
+  `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
+    data
+  )}</form>`;
+
+/*
+* END OF TEST FORM
+* */
+
 //roadmap
 const dkl = [[[1, 1, 1]], [[1, 1, 0]], [[1, 0, 1]], [[1, 0, 0]], [[]], [[]]];
 const nodkl = [[[]], [[]], [[]], [[]], [[1, 0]], [[1, 1]]];
 
 //
-
 const descriptionParse = text => {
   const discount = text.match(/\d+\%/g).toString(); // ищем скидку
   const pool = text.split(discount); // разбиваем текст по смыслу
@@ -104,36 +135,6 @@ const direction = (x, arr) => {
   }
   return result.length > 0 ? result[0].split("-") : "";
 };
-
-/* Тестовая форма */
-
-// рендеринг полей формы
-const dataFields = data => {
-  return data.reduce((acc, el) => {
-    const dom =
-      el.type === "checkbox" || el.type === "radio"
-        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" ${
-            get(el.param) ? "checked" : set(el.param, el.start)
-          }>
-   </div>`
-        : `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" value="${
-            get(el.param) ? get(el.param) : set(el.param, el.start) && el.start
-          }"
-   </div>`;
-    return acc + dom;
-  }, "");
-};
-
-/**/
-// wrapper
-const dataForm = data =>
-  `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
-    data
-  )}</form>`;
 
 const banner = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:river.jpg)!\')"><i class='mx-banner-close'>+</i><button class='mx-banner-btn'>Выбрать</button></div>`;
 const init = () => {

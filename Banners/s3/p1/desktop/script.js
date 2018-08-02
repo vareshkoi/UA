@@ -1,7 +1,11 @@
 const set = (name, val) => visitor.setData(name, val);
 const get = name => visitor.getData(name);
-//data
-//
+
+/*
+* TEST FORM
+* */
+
+// Interface
 const test_data = [
   { param: "it-is-dkl", start: 0, name: "ДКЛ", type: "checkbox" },
   {
@@ -51,6 +55,34 @@ const test_data = [
   }
 ];
 
+// Render
+const dataFields = data => {
+  return data.reduce((acc, el) => {
+    const dom = param => {
+      return el.type === "checkbox" || el.type === "radio"
+        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" ${param ? "checked" : ""}>
+   </div>`
+        : `<div><label>${el.name}</label><input class="${el.param}" type="${
+            el.type
+          }" value="${param !== undefined ? param : el.start}">
+   </div>`;
+    };
+    return acc + dom(get(el.param));
+  }, "");
+};
+
+// Wrapper
+const dataForm = data =>
+  `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
+    data
+  )}</form>`;
+
+/*
+* END OF TEST FORM
+* */
+
 //roadmap
 const dkl = [
   [
@@ -80,7 +112,6 @@ const nodkl = [
 ];
 
 //поиск соответсвий
-// console.log("arr", arr);
 const matchSearch = (x, arr) => {
   let result = -1;
   arr.map((row, i) => {
@@ -92,7 +123,6 @@ const matchSearch = (x, arr) => {
 };
 
 /* Готовим данные */
-
 const acrl3m_bonus = get("acrl3m-bonus");
 const bonus = Number(get("bonus"));
 const registration = Number(get("registration"));
@@ -149,28 +179,6 @@ const direction = (x, arr) => {
   return result.length > 0 ? result[0].split("-") : "";
 };
 
-/* Тестовая форма */
-// рендеринг полей формы
-const dataFields = data => {
-  return data.reduce((acc, el) => {
-    const dom =
-      el.type === "checkbox" || el.type === "radio"
-        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" ${
-            get(el.param) ? "checked" : set(el.param, el.start)
-          }>
-   </div>`
-        : `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" value="${
-            get(el.param) ? get(el.param) : set(el.param, el.start) && el.start
-          }"
-   </div>`;
-    return acc + dom;
-  }, "");
-};
-
 const descriptionParse = text => {
   const discount = text.match(/\d+\%/g).toString(); // ищем скидку
   const pool = text.split(discount); // разбиваем текст по смыслу
@@ -180,18 +188,6 @@ const descriptionParse = text => {
     expirationText: pool[1]
   };
 };
-
-console.log(
-  "Скидка на авиабилет_Москва-Санкт-Петербург 10% Действует до 15.08.2018."
-);
-
-/**/
-
-// wrapper
-const dataForm = data =>
-  `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
-    data
-  )}</form>`;
 
 //dom
 const banner = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:sea.png)!\')"><i class='mx-banner-close'>+</i><button class='mx-banner-btn'>Выбрать</button></div>`;
