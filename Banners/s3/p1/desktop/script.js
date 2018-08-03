@@ -136,7 +136,7 @@ const recDir = get("rec-dir");
 const variant = [
   acrl3m_bonus > 100,
   bonus > 10000,
-  registration <= 3,
+  registration <= 3 ? 1 : 0,
   sensitivity ? 1 : 0,
   promocd !== undefined ? (promocd.length > 0 ? 1 : 0) : 0,
   [
@@ -150,7 +150,6 @@ const variant = [
 ].map(el => {
   return el ? 1 : 0;
 });
-console.log("variant", variant);
 const research = matchSearch(
   get("it-is-dkl")
     ? variant.reduce((acc, el, i) => {
@@ -161,7 +160,6 @@ const research = matchSearch(
       }, []),
   get("it-is-dkl") ? dkl : nodkl
 );
-console.log("research", research);
 
 // Рекомендованное направлениец v1
 /*
@@ -191,7 +189,7 @@ const descriptionParse = text => {
 
 //dom
 const banner = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:sea.png)!\')"><i class='mx-banner-close'>+</i><button class='mx-banner-btn'>Выбрать</button></div>`;
-
+console.log(variant, research);
 const init = () => {
   //
   const body = $("body");
@@ -286,7 +284,6 @@ const init = () => {
   // show
   research > -1
     ? setTimeout(function() {
-        console.log("show");
         bnr.addClass("__active");
       }, 1000)
     : null;

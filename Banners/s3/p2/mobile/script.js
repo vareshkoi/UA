@@ -1,51 +1,11 @@
 const set = (name, val) => visitor.setData(name, val);
 const get = name => visitor.getData(name);
 
-//data
-const test_data = [
-  { param: "it-is-dkl", start: 0, name: "ДКЛ", type: "checkbox" },
-  { param: "bonus", start: "0", name: "Бонусы (ДКЛ)", type: "text" },
-  {
-    param: "city-reg",
-    start: "Москва",
-    name: "Город регистрации",
-    type: "text"
-  },
-  {
-    param: "rec-dir",
-    start: "Москва-Уфа, Сочи-Москва, Санкт-Петербург-Сочи",
-    name: "Рекомендованные направления",
-    type: "text"
-  },
-  {
-    param: "registration",
-    start: "3",
-    name: "Сколько месяцев назад зарег-ся",
-    type: "text"
-  },
-  {
-    param: "acrl3m-bonus",
-    start: "0",
-    name: "Бонусы за 3м (не ДКЛ)",
-    type: "text"
-  },
-  { param: "promocd", start: "S548dft57F", name: "Промокод", type: "text" },
-  {
-    param: "desc-promo",
-    start:
-      "Скидка_на первую_покупку 10% Действует до 15.08.2018._Количество билетов со скидкой по_промокоду ограничено!",
-    name: "Описание промокода",
-    type: "text"
-  },
-  { param: "price", start: 2999, name: "Тариф", type: "text" }
-];
-
 //roadmap
 const dkl = [[[1, 1, 1]], [[1, 1, 0]], [[1, 0, 1]], [[1, 0, 0]], [[]], [[]]];
 const nodkl = [[[]], [[]], [[]], [[]], [[1, 0]], [[1, 1]]];
 
 //
-
 const descriptionParse = text => {
   const discount = text.match(/\d+\%/g).toString(); // ищем скидку
   const pool = text.split(discount); // разбиваем текст по смыслу
@@ -105,50 +65,20 @@ const direction = (x, arr) => {
   return result.length > 0 ? result[0].split("-") : "";
 };
 
-/* Тестовая форма */
-
-// рендеринг полей формы
-const dataFields = data => {
-  return data.reduce((acc, el) => {
-    const dom =
-      el.type === "checkbox" || el.type === "radio"
-        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" ${
-            get(el.param) ? "checked" : set(el.param, el.start)
-          }>
-   </div>`
-        : `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" value="${
-            get(el.param) ? get(el.param) : set(el.param, el.start) && el.start
-          }"
-   </div>`;
-    return acc + dom;
-  }, "");
-};
-
-/**/
-// wrapper
-const dataForm = data =>
-  `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
-    data
-  )}</form>`;
-
 const banner = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:river.jpg)!\')"><i class='mx-banner-close'>+</i><button class='mx-banner-btn'>Выбрать</button></div>`;
 const init = () => {
   const body = $("body");
-  body.append(dataForm(test_data)).append(banner);
+  body.append(banner);
   const bnr = $(".mx-banner");
+  const fromTo = `<span class="mx-banner-from-to">${
+    direction(cityReg, recDir)[0]
+  } - ${direction(cityReg, recDir)[1]}</span>`;
   const from = `<span class="mx-banner-from">${
     direction(cityReg, recDir)[0]
   }</span>`;
   const to = `<span class="mx-banner-to">${
     direction(cityReg, recDir)[1]
   }</span>`;
-  const fromTo = `<span class="mx-banner-from-to">${
-    direction(cityReg, recDir)[0]
-  } - ${direction(cityReg, recDir)[1]} </span>`;
   const price = `<span class="mx-banner-price">${get("price")}</span>`;
   const promo = `<span class="mx-banner-promo">${promocd}<span>`;
   const profit = `<center><span class="mx-banner-profit">${descriptionParse(
@@ -158,8 +88,7 @@ const init = () => {
   ).expirationText.replace(/_/gi, "<br>")}</span><span class="mx-banner-disc">${
     descriptionParse(get("desc-promo")).discount
   }</span></center>`;
-  const balance = `<span class="mx-banner-balance">Ваш баланс: ${bonus} бонусов</span>`;
-  const balance2 = `<span class="mx-banner-balance">Ваш баланс:<br>${bonus} бонусов</span>`;
+  const balance = `<span class="mx-banner-balance">${bonus} бонусов</span>`;
   const noDkl = `<span class="mx-banner-nodkl">${acrl3m_bonus}</span>`;
   const txt = txt => `<span class="mx-banner-text">${txt}</span>`;
   console.log(variant, research);
@@ -173,9 +102,9 @@ const init = () => {
     case 1:
       bnr
         .addClass("__two")
-        .append(fromTo)
         .append(price)
-        .append(balance2);
+        .append(txt("Воспользуйтесь скидкой на этот перелет"))
+        .append(balance);
       break;
     case 2:
       bnr
@@ -185,37 +114,47 @@ const init = () => {
       break;
     case 3:
       bnr
-        .addClass("__two")
+        .addClass("__four")
         .append(fromTo)
         .append(price);
       break;
     case 4:
       bnr
-        .addClass("__two")
-        .addClass("__center-btn")
+        .addClass("__four")
+        .addClass("__almost")
         .append(fromTo)
-        .append(noDkl);
+        .append(noDkl)
+        .append(
+          txt(
+            "Для того чтобы начислить бонусы за прошлые полеты<br>в течении 3-х месяцев зарегистрируйтесь в программе «Крылья»"
+          )
+        );
       break;
     case 5:
       bnr
         .addClass("__four")
         .append(promo)
-        .append(noDkl);
+        .append(noDkl)
+        .append(
+          txt(
+            "Для того чтобы начислить бонусы<br>за прошлые полеты<br>в течении 3-х месяцев<br>зарегистрируйтесь в программе «Крылья»"
+          )
+        );
       break;
   }
 
-  // // adaptive text
-  // const arvTxt = $(".mx-banner-to");
-  // const depTxt = $(".mx-banner-from");
-  // const heightK = 0.4;
-  //
-  // while (arvTxt.height() > 50) {
-  //   arvTxt.css({ "font-size": parseInt(arvTxt.css("font-size")) - 2 + "px" });
-  // }
-  //
-  // depTxt.css({
-  //   "font-size": parseInt(arvTxt.css("font-size")) * heightK + "px"
-  // });
+  // adaptive text
+  const arvTxt = $(".mx-banner-to");
+  const depTxt = $(".mx-banner-from");
+  const heightK = 0.4;
+
+  while (arvTxt.height() > 50) {
+    arvTxt.css({ "font-size": parseInt(arvTxt.css("font-size")) - 2 + "px" });
+  }
+
+  depTxt.css({
+    "font-size": parseInt(arvTxt.css("font-size")) * heightK + "px"
+  });
 
   // show
   research > -1
@@ -229,21 +168,6 @@ const init = () => {
     $(this)
       .parent()
       .removeClass("__active");
-  });
-
-  // обработчик событий формы
-  $(".ok-test").click(e => {
-    e.preventDefault();
-    return (
-      $(".test-data-form input").map((i, _) => {
-        const el = $(_),
-          type = el.attr("type"),
-          name = el.attr("class");
-        return type === "checkbox"
-          ? el.is(":checked") ? set(name, true) : set(name, false)
-          : set(name, el.val());
-      }) && location.reload()
-    );
   });
 
   /* TODO: собрать линк и отдать в cеттер -->>> set("link", val) */
