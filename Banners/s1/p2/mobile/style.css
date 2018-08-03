@@ -50,11 +50,8 @@
   font-size: 28px;
   color: #fff;
   transform: rotate(-45deg);
-  font-style: normal;
   cursor: pointer;
-}
-.__index .mx-banner-close {
-  display: none;
+  font-family: initial;
 }
 .mx-banner-btn {
   background: #f34558;

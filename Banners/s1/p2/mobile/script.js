@@ -30,14 +30,14 @@ const matchSearch = (x, arr) => {
 
 // Проверка промокода
 const promoCheck = promo => {
-    return promo ? (promo.length > 0 ? 1 : 0) : 0;
+  return promo ? (promo.length > 0 ? 1 : 0) : 0;
 };
 
 /* Готовим данные */
 const x = get("bonuses");
 const y = get("points");
 const z = get("burn");
-const promocd = promoCheck(get("promo"));
+const promocd = promoCheck(get("promocode"));
 
 const variant = [
   x < 100, //
@@ -62,7 +62,6 @@ const research = matchSearch(
   get("it-is-dkl") ? dkl : nodkl
 );
 
-
 //dom
 const banner = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:plane.png)!\')"><i class='mx-banner-close'>+</i></div>`;
 const init = () => {
@@ -80,7 +79,7 @@ const init = () => {
   )}</span>`;
   const btn = text =>
     `<button class="mx-banner-btn">${text ? text : "Выбрать"}</button>`;
-  console.log(research);
+  console.log(variant, research);
   switch (research) {
     case -1: //
       bnr.append(head1).append(btn());
