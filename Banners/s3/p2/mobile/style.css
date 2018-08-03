@@ -70,6 +70,11 @@
 .__two .mx-banner-btn {
   bottom: 15px;
 }
+.__four .mx-banner-btn {
+  left: 50%;
+  right: initial;
+  transform: translateX(-50%);
+}
 .mx-banner-btn:hover {
   background-color: #c3001e;
 }
@@ -103,6 +108,16 @@
   letter-spacing: 1px;
   line-height: 1.2;
   margin-top: 0;
+}
+.__four .mx-banner-from-to {
+  font-size: 36px;
+  text-align: center;
+  line-height: 1;
+}
+.__almost .mx-banner-from-to {
+  text-align: left;
+  font-size: 18px;
+  margin: 0;
 }
 /**/
 .mx-banner-price {
@@ -202,6 +217,15 @@
   letter-spacing: 1.5px;
   font-weight: 600;
   margin-top: 12px;
+}
+.mx-banner-balance:before {
+  content: "Ваш баланс: ";
+  font-family: "Roboto", sans-serif !important;
+  font-weight: 500;
+}
+.__two .mx-banner-balance:before {
+  content: "Ваш баланс";
+  display: block;
 }
 .__two .mx-banner-balance {
   font-size: 16px;

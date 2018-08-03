@@ -69,7 +69,6 @@ const variant = [
 ].map(el => {
   return el ? 1 : 0;
 });
-console.log("variant", variant);
 const research = matchSearch(
   get("it-is-dkl")
     ? variant.reduce((acc, el, i) => {
@@ -80,7 +79,6 @@ const research = matchSearch(
       }, []),
   get("it-is-dkl") ? dkl : nodkl
 );
-console.log("research", research);
 
 // Рекомендованное направлениец v1
 /*
@@ -129,9 +127,7 @@ const init = () => {
   const promo = `<span class="mx-banner-promo">${promocd}</span>`;
   const desc = `<span class="mx-banner-desc">${descriptionParse(
     get("desc-promo")
-  ).discountText.replace(/_/gi, "<br>")}<br>${descriptionParse(
-    get("desc-promo")
-  ).expirationText.replace(/_/gi, "<br>")}</span>`;
+  ).discountText.replace(/_/gi, "<br>")}</span>`;
   const disc = `<span class="mx-banner-disc">${
     descriptionParse(get("desc-promo")).discount
   }</span>`;
@@ -141,8 +137,9 @@ const init = () => {
   const bon2 = `<span class="mx-banner-bon">Воспользуйтесь скидкой на этот полет<br>Ваш баланс: ${bonus} бонусов</span>`;
   const balance = `<span class="mx-banner-balance">${bonus} Бонусов</span>`;
   const offer = `<span class="mx-banner-offer">Билеты по данному направлению<br>пользуются спросом.<br>Воспользуйтесь скидкой<br>на этот полёт</span>`;
-  const offer2 = `<span class="mx-banner-offer">*Для того чтобы начислить бонусы<br>за прошлые полеты в течение 3 месяцев<br>зарегистрируйтесь в программе «Крылья»`;
+  const offer2 = `<span class="mx-banner-offer">*Для того чтобы начислить бонусы за прошлые полеты<br>в течение 3 месяцев зарегистрируйтесь в программе «Крылья»`;
 
+  console.log(variant, research);
   switch (research) {
     case 0:
       bnr
@@ -155,14 +152,18 @@ const init = () => {
         .addClass("__two")
         .append(fromTo)
         .append(price)
+        .append(desc)
+        .append(disc)
         .append(promo);
       break;
     case 2:
       bnr
-        .addClass("__three")
+        .addClass("__two")
         .append(fromTo)
         .append(price)
         .append(promo)
+        .append(desc)
+        .append(disc)
         .append(bon);
       break;
     case 3:
@@ -178,7 +179,8 @@ const init = () => {
         .addClass("__five")
         .append(fromTo)
         .append(price)
-        .append(swag);
+        .append(swag)
+        .append(offer2);
       break;
   }
 
@@ -223,7 +225,6 @@ const init = () => {
   // show
   research > -1
     ? setTimeout(function() {
-        console.log("show");
         bnr.addClass("__active");
       }, 1000)
     : null;

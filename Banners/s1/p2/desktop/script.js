@@ -1,7 +1,11 @@
 const set = (name, val) => visitor.setData(name, val);
 const get = name => visitor.getData(name);
 
-//data
+/*
+* TEST FORM
+* */
+
+// Interface
 const test_data = [
   { param: "it-is-dkl", start: 0, name: "ДКЛ", type: "checkbox" },
   { param: "one-way", start: 0, name: "В один конец", type: "checkbox" },
@@ -13,7 +17,6 @@ const test_data = [
     type: "text"
   },
   { param: "burn", start: 0, name: "к Сгоранию", type: "text" },
-  { param: "promo", start: 0, name: "Промокод флаг", type: "checkbox" },
   { param: "promocode", start: "S548dft57F", name: "Промокод", type: "text" },
   {
     param: "desc-promo",
@@ -24,7 +27,35 @@ const test_data = [
   }
 ];
 
-//roadmap
+// Render
+const dataFields = data => {
+  return data.reduce((acc, el) => {
+    const dom = param => {
+      return el.type === "checkbox" || el.type === "radio"
+        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" ${param ? "checked" : ""}>
+   </div>`
+        : `<div><label>${el.name}</label><input class="${el.param}" type="${
+            el.type
+          }" value="${param !== undefined ? param : el.start}">
+   </div>`;
+    };
+    return acc + dom(get(el.param));
+  }, "");
+};
+
+// Wrapper
+const dataForm = data =>
+  `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
+    data
+  )}</form>`;
+
+/*
+* END OF TEST FORM
+* */
+
+// Roadmap
 const dkl = [
   [[0, 0, 0, 0, 0]],
   [[1, 0, 0, 0, 1], [1, 0, 0, 1, 1]],
@@ -40,7 +71,7 @@ const nodkl = [
   [[0, 1, 1, 0], [0, 1, 0, 0], [0, 1, 1, 1], [0, 1, 0, 1]]
 ];
 
-//поиск соответсвий
+// поиск соответсвий
 const matchSearch = (x, arr) => {
   let result = -1;
   arr.map((row, i) => {
@@ -50,41 +81,17 @@ const matchSearch = (x, arr) => {
   });
   return result;
 };
-/* Тестовая форма */
 
-// рендеринг полей формы
-const dataFields = data => {
-  return data.reduce((acc, el) => {
-    const dom =
-      el.type === "checkbox" || el.type === "radio"
-        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" ${
-            get(el.param) ? "checked" : set(el.param, el.start)
-          }>
-   </div>`
-        : `<div><label>${el.name}</label><input class="${el.param}" name="${
-            el.type
-          }-group" type="${el.type}" value="${
-            get(el.param) ? get(el.param) : set(el.param, el.start) && el.start
-          }"
-   </div>`;
-    return acc + dom;
-  }, "");
+// Проверка промокода
+const promoCheck = promo => {
+  return promo ? (promo.length > 0 ? 1 : 0) : 0;
 };
 
-// wrapper
-const dataForm = data =>
-  `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
-    data
-  )}</form>`;
-
-/* Готовим данные */
-
+// Готовим данные
 const x = get("bonuses");
 const y = get("points");
 const z = get("burn");
-const promocd = get("promo");
+const promocd = promoCheck(get("promocode"));
 
 const variant = [
   x < 100, //
@@ -119,13 +126,7 @@ const descriptionParse = text => {
   };
 };
 
-console.log(
-  "Скидка на авиабилет_Москва-Санкт-Петербург 10% Действует до 15.08.2018."
-);
-
-/**/
-
-//dom
+// DOM
 const banner = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:plane.png)!\')"><i class='mx-banner-close'>+</i></div>`;
 const init = () => {
   const body = $("body");
@@ -204,7 +205,7 @@ const init = () => {
       .removeClass("__active");
   });
 
-  // обработчик событий формы
+  // Send form data
   $(".ok-test").click(e => {
     e.preventDefault();
     return (

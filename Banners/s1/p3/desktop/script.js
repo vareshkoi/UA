@@ -1,7 +1,11 @@
 const set = (name, val) => visitor.setData(name, val);
 const get = name => visitor.getData(name);
 
-//data
+/*
+* TEST FORM
+* */
+
+// Interface
 const test_data = [
   { param: "it-is-dkl", start: 0, name: "ДКЛ", type: "checkbox" },
   {
@@ -14,29 +18,33 @@ const test_data = [
   { param: "fav-place", start: "4F", name: "Любимое место", type: "text" }
 ];
 
-/* Тестовая форма */
-// рендеринг полей формы
+// Render
 const dataFields = data => {
-  return data.map(el => {
-    return el.type === "checkbox" || el.type === "radio"
-      ? `<div><label>${el.name}</label><input class=${el.param} name="${
-          el.type
-        }-group" type=${el.type} ${
-          get(el.param) ? "checked" : set(el.param, el.start)
-        }>
+  return data.reduce((acc, el) => {
+    const dom = param => {
+      return el.type === "checkbox" || el.type === "radio"
+        ? `<div><label>${el.name}</label><input class="${el.param}" name="${
+            el.type
+          }-group" type="${el.type}" ${param ? "checked" : ""}>
    </div>`
-      : `<div><label>${el.name}</label><input class=${el.param} name="${
-          el.type
-        }-group" type=${el.type} value=${
-          get(el.param) ? get(el.param) : set(el.param) && el.start
-        }
+        : `<div><label>${el.name}</label><input class="${el.param}" type="${
+            el.type
+          }" value="${param !== undefined ? param : el.start}">
    </div>`;
-  });
+    };
+    return acc + dom(get(el.param));
+  }, "");
 };
+
+// Wrapper
 const dataForm = data =>
   `<form class="test-data-form"><button class="ok-test">Тест</button>${dataFields(
     data
   )}</form>`;
+
+/*
+* END OF TEST FORM
+* */
 
 const banner1 = `<div class='mx-banner' style="background-image: url(\'#$(ContentManager:kreslo.png)!\')"><span class="mx-banner-head">Успейте забронировать ваше любимое кресло</span><span class="mx-banner-armchair">${
   get("fav-place") === "undefined" ? "4F" : get("fav-place")

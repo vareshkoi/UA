@@ -142,9 +142,7 @@ const init = () => {
   const promo = `<span class="mx-banner-promo">${get("promo")}</span>`;
   const desc = `<span class="mx-banner-desc">${descriptionParse(
     get("desc-promo")
-  ).discountText.replace(/_/gi, "<br>")}<br>${descriptionParse(
-    get("desc-promo")
-  ).expirationText.replace(/_/gi, "<br>")}</span>`;
+  ).discountText.replace(/_/gi, "<br>")}</span>`;
   const disc = `<span class="mx-banner-disc">${
     descriptionParse(get("desc-promo")).discount
   }</span>`;
@@ -154,7 +152,7 @@ const init = () => {
     `<span class="mx-banner-pretext">Со скидкой</span><span class="mx-banner-profit">${burn}</span>`;
   const profit2 = burn => `<span class="mx-banner-profit">${burn}</span>`;
   const light = `<span class="mx-banner-light">* Сгорают в течении 3 месяцев</span>`;
-  const offer = `<span class="mx-banner-offer">Билеты по данному направлению<br>пользуются спросом</span>`;
+  const offer = `<span class="mx-banner-offer">Билеты по данному направлению пользуются спросом</span>`;
   const burnDKL = `<span class="mx-banner-burn">${expired_bonus} ₽ сгорают в течение 3-х месяцев</span>`;
   console.log(research);
 
@@ -162,15 +160,17 @@ const init = () => {
   switch (research) {
     case 0:
       bnr
-        .append(txt("Мы сохранили Ваш заказ<br>продолжите покупку"))
+        .append(txt("Вы искали направление"))
         .append(fromTo)
+        .append(offer);
       break;
     case 1:
       bnr
         .addClass("__two")
         .append(txt("Вы искали направление"))
         .append(fromTo)
-        .append(promo);
+        .append(promo)
+        .append(desc);
       break;
     case 2:
       bnr
@@ -178,6 +178,8 @@ const init = () => {
         .append(txt("Вы искали направление"))
         .append(fromTo)
         .append(promo)
+        .append(desc)
+        .append(disc)
         .append(bonuses);
       break;
 
@@ -202,15 +204,21 @@ const init = () => {
     case 5:
       bnr
         .addClass("__six")
-        .append(fromTo)
-        .append(profit2(acrl3m_bonus));
+        .append(txt("Вы искали направление"))
+        .append(fromTo2)
+        .append(profit2(acrl3m_bonus))
+        .append(
+          `<span class="mx-banner-light">*Для того чтобы начислить бонусы за прошлые полеты<br>в течение 3 месяцев зарегистрируйтесь в программе «Крылья»<span>`
+        );
       break;
     case 6:
       bnr
         .addClass("__seven")
         .append(txt("Мы сохранили Ваш заказ"))
-        .append(fromTo2)
+        .append(fromTo)
         .append(promo)
+        .append(desc)
+        .append(disc)
         .append(burnDKL);
       break;
   }
