@@ -3,6 +3,7 @@
 var path = require("path");
 var webpack = require("webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var styleLintPlugin = require("stylelint-webpack-plugin");
 
 require("es6-promise").polyfill();
 
@@ -20,6 +21,16 @@ module.exports = {
       filename: "css/app.css",
       allChunks: true,
       disable: true
+    }),
+
+    // Stylelint plugin
+    new styleLintPlugin({
+      configFile: ".stylelintrc",
+      context: "",
+      files: "**/*.scss",
+      syntax: "scss",
+      failOnError: false,
+      quiet: false
     })
   ],
 
@@ -45,5 +56,6 @@ module.exports = {
     colors: true
   },
 
-  devtool: "hidden-source-map"
+  // Create Sourcemaps for the bundle
+  devtool: "source-map"
 };

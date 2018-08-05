@@ -1,4 +1,4 @@
-// возвращает cookie с именем name, если есть, если нет, то undefined
+// Here cook delicious cookies
 export const get = name => {
   var matches = document.cookie.match(
     new RegExp(
