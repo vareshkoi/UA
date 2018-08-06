@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.test-form {
+  display: block;
+  background: #b9c8ff;
+  min-width: 300px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 20px;
+
+  div {
+    padding: 5px 0;
+
+    label,
+    input {
+      display: inline-block;
+      width: 50%;
+    }
+  }
+
+  input[type="submit"] {
+    display: block;
+    padding: 5px 20px;
+  }
+}
